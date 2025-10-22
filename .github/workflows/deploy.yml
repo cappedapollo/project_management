@@ -1,0 +1,56 @@
+name: Deploy to Production
+
+on:
+  push:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        cache: 'npm'
+        
+    - name: Install dependencies
+      run: |
+        npm install -g pnpm
+        pnpm install --frozen-lockfile
+        
+    - name: Run tests
+      run: |
+        # Add your test commands here
+        echo "Running tests..."
+        
+    - name: Build application
+      run: |
+        pnpm run build
+        
+    - name: Deploy to server
+      uses: appleboy/ssh-action@v1.0.3
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        key: ${{ secrets.SSH_KEY }}
+        port: ${{ secrets.PORT }}
+        script: |
+          cd /path/to/your/project
+          git pull origin main
+          # Install dependencies
+          cd backend && npm install
+          # Start backend server with PM2
+          pm2 restart project-management-api || pm2 start backend/server.js --name "project-management-api"
+          # Start frontend (if needed)
+          pm2 restart project-management-frontend || pm2 start "npm run preview" --name "project-management-frontend"
+          
+    - name: Health check
+      run: |
+        sleep 30
+        curl -f ${{ secrets.HEALTH_CHECK_URL }} || exit 1

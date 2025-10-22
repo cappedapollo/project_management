@@ -1,0 +1,623 @@
+/* import font */
+@import "@fontsource-variable/open-sans";
+@import "@fontsource-variable/inter";
+
+/* editor */
+@import "react-quill/dist/quill.snow.css";
+
+/* import tailwind */
+@import "tailwindcss";
+@import "tw-animate-css";
+
+/* config  tailwind */
+@config "../tailwind.config.ts";
+
+/* base layer */
+@layer base {
+	*,
+	::after,
+	::before,
+	::backdrop,
+	::file-selector-button {
+		/* https://tailwindcss.com/docs/upgrade-guide#default-border-color */
+		border-color: rgba(var(--colors-palette-gray-500Channel) / var(--opacity-border));
+	}
+
+	body {
+		background-color: var(--background);
+	}
+}
+
+@theme {
+	--animate-collapsible-down: collapsible-down 0.2s ease-in-out;
+	--animate-collapsible-up: collapsible-up 0.2s ease-in-out;
+	@keyframes collapsible-down {
+		from {
+			height: 0;
+		}
+		to {
+			height: var(--radix-collapsible-content-height);
+		}
+	}
+
+	@keyframes collapsible-up {
+		from {
+			height: var(--radix-collapsible-content-height);
+		}
+		to {
+			height: 0;
+		}
+	}
+
+	--animate-slow-spin: spin 4s linear infinite;
+	@keyframes spin {
+		from {
+			transform: rotate(0deg);
+		}
+		to {
+			transform: rotate(360deg);
+		}
+	}
+}
+
+/* Shadcn UI Light Theme */
+:root {
+	--radius: 0.5rem;
+	--background: var(--colors-common-white);
+	--foreground: var(--colors-common-black);
+	--card: var(--colors-common-white);
+	--card-foreground: var(--colors-common-black);
+	--popover: var(--colors-common-white);
+	--popover-foreground: var(--colors-common-black);
+	--primary: var(--colors-palette-primary-default);
+	--primary-foreground: var(--colors-palette-primary-lighter);
+	--secondary: var(--colors-palette-gray-200);
+	--secondary-foreground: var(--colors-palette-gray-600);
+	--muted: var(--colors-palette-gray-200);
+	--muted-foreground: var(--colors-palette-gray-500);
+	--accent: var(--colors-palette-gray-200);
+	--accent-foreground: var(--colors-palette-gray-600);
+	--destructive: var(--colors-palette-error-default);
+	--border: rgba(var(--colors-palette-gray-500Channel) / var(--opacity-border));
+	--input: rgba(var(--colors-palette-gray-500Channel) / var(--opacity-border));
+	--ring: var(--colors-palette-primary-default);
+	--chart-1: oklch(0.646 0.222 41.116);
+	--chart-2: oklch(0.6 0.118 184.704);
+	--chart-3: oklch(0.398 0.07 227.392);
+	--chart-4: oklch(0.828 0.189 84.429);
+	--chart-5: oklch(0.769 0.188 70.08);
+	--sidebar: var(--colors-palette-gray-200);
+	--sidebar-foreground: var(--colors-palette-gray-800);
+	--sidebar-primary: var(--colors-palette-primary-default);
+	--sidebar-primary-foreground: var(--colors-palette-primary-lighter);
+	--sidebar-accent: var(--colors-palette-gray-200);
+	--sidebar-accent-foreground: var(--colors-palette-gray-800);
+	--sidebar-border: var(--colors-palette-gray-200);
+	--sidebar-ring: var(--colors-palette-primary-default);
+}
+
+/* Shadcn UI Dark Theme */
+[data-theme-mode="dark"] {
+	--background: var(--colors-common-black);
+	--foreground: var(--colors-common-white);
+	--card: var(--colors-common-black);
+	--card-foreground: var(--colors-common-white);
+	--popover: var(--colors-common-black);
+	--popover-foreground: var(--colors-common-white);
+	--primary: var(--colors-palette-primary-default);
+	--primary-foreground: var(--colors-palette-primary-darker);
+	--secondary: var(--colors-background-neutral);
+	--secondary-foreground: var(--colors-palette-gray-500);
+	--muted: var(--colors-background-neutral);
+	--muted-foreground: var(--colors-palette-gray-400);
+	--accent: var(--colors-background-neutral);
+	--accent-foreground: var(--colors-palette-gray-500);
+	--destructive: var(--colors-palette-error-default);
+	--border: rgba(var(--colors-palette-gray-500Channel) / var(--opacity-border));
+	--input: rgba(var(--colors-palette-gray-500Channel) / var(--opacity-border));
+	--ring: var(--colors-palette-primary-default);
+	--chart-1: oklch(0.488 0.243 264.376);
+	--chart-2: oklch(0.696 0.17 162.48);
+	--chart-3: oklch(0.769 0.188 70.08);
+	--chart-4: oklch(0.627 0.265 303.9);
+	--chart-5: oklch(0.645 0.246 16.439);
+	--sidebar: var(--colors-background-neutral);
+	--sidebar-foreground: var(--colors-common-white);
+	--sidebar-primary: var(--colors-palette-primary-default);
+	--sidebar-primary-foreground: var(--colors-palette-primary-darker);
+	--sidebar-accent: var(--colors-background-neutral);
+	--sidebar-accent-foreground: var(--colors-common-white);
+	--sidebar-border: rgba(var(--colors-palette-gray-500Channel) / var(--opacity-border));
+	--sidebar-ring: var(--colors-palette-primary-default);
+}
+
+::-webkit-scrollbar {
+	width: 5px;
+}
+
+::-webkit-scrollbar-track {
+	background: var(--background);
+}
+
+::-webkit-scrollbar-thumb {
+	background: var(--sidebar);
+	border-radius: 5px;
+}
+
+* {
+	scrollbar-width: thin;
+	scrollbar-color: var(--sidebar) transparent;
+}
+
+/* Modern UI Enhancements */
+.modern-blur {
+	backdrop-filter: blur(20px);
+	-webkit-backdrop-filter: blur(20px);
+}
+
+.modern-gradient {
+	background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+	border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.modern-shadow {
+	box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+.modern-shadow-lg {
+	box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25), 0 10px 20px -5px rgba(0, 0, 0, 0.1);
+}
+
+.modern-glow {
+	box-shadow: 0 0 0 1px rgba(var(--colors-palette-primary-defaultChannel), 0.3), 0 4px 12px rgba(var(--colors-palette-primary-defaultChannel), 0.15), 0 16px
+		32px rgba(var(--colors-palette-primary-defaultChannel), 0.1);
+}
+
+/* Smooth transitions for all interactive elements */
+* {
+	transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+	transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+	transition-duration: 150ms;
+}
+
+/* Modern focus styles */
+*:focus-visible {
+	outline: 2px solid var(--ring);
+	outline-offset: 2px;
+}
+
+/* Enhanced scrollbar styling */
+::-webkit-scrollbar {
+	width: 6px;
+	height: 6px;
+}
+
+::-webkit-scrollbar-track {
+	background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+	background: rgba(var(--colors-palette-gray-400Channel), 0.3);
+	border-radius: 6px;
+	transition: all 0.2s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background: rgba(var(--colors-palette-gray-500Channel), 0.5);
+}
+
+/* Modern loading animations */
+@keyframes shimmer {
+	0% {
+		background-position: -200px 0;
+	}
+	100% {
+		background-position: calc(200px + 100%) 0;
+	}
+}
+
+.animate-shimmer {
+	background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+	background-size: 200px 100%;
+	animation: shimmer 1.5s infinite;
+}
+
+/* Enhanced card hover effects */
+.modern-card-hover {
+	transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.modern-card-hover:hover {
+	transform: translateY(-4px) scale(1.01);
+	box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.15), 0 8px 16px -4px rgba(0, 0, 0, 0.1);
+}
+
+/* Glass morphism effect */
+.glassmorphism {
+	background: rgba(255, 255, 255, 0.08);
+	backdrop-filter: blur(20px);
+	-webkit-backdrop-filter: blur(20px);
+	border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+[data-theme-mode="dark"] .glassmorphism {
+	background: rgba(0, 0, 0, 0.2);
+	border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* slash layout */
+:root {
+	--layout-nav-width: 260px;
+	--layout-nav-width-mini: 88px;
+	--layout-nav-height-horizontal: 48px;
+	--layout-header-height: 64px;
+	--layout-multi-tabs-height: 48px;
+}
+
+/* Custom Dialog Width Override */
+.dialog-wide {
+	max-width: 1200px !important;
+	width: 95vw !important;
+	min-width: 95vw !important;
+}
+
+@media (min-width: 640px) {
+	.dialog-wide {
+		max-width: 1200px !important;
+		width: 95vw !important;
+	}
+}
+
+/* Microsoft Teams Calendar Styles */
+.teams-calendar {
+	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.teams-calendar-header {
+	background: #ffffff;
+	border-bottom: 1px solid #e1e5e9;
+	padding: 16px 24px;
+}
+
+.teams-calendar-title {
+	color: #242424;
+	font-size: 20px;
+	font-weight: 600;
+	margin: 0;
+}
+
+.teams-calendar-nav-button {
+	background: transparent;
+	border: 1px solid #e1e5e9;
+	border-radius: 4px;
+	padding: 8px 12px;
+	color: #424242;
+	cursor: pointer;
+	transition: all 0.2s ease;
+}
+
+.teams-calendar-nav-button:hover {
+	background: #f3f2f1;
+	border-color: #c8c6c4;
+}
+
+.teams-calendar-new-meeting {
+	background: #6264a7;
+	border: 1px solid #6264a7;
+	border-radius: 4px;
+	color: white;
+	padding: 8px 16px;
+	font-weight: 600;
+	cursor: pointer;
+	transition: all 0.2s ease;
+}
+
+.teams-calendar-new-meeting:hover {
+	background: #5b5fc7;
+	border-color: #5b5fc7;
+}
+
+.teams-calendar-grid {
+	background: #ffffff;
+	border-right: 1px solid #e1e5e9;
+}
+
+.teams-calendar-time-column {
+	background: #faf9f8;
+	border-right: 1px solid #e1e5e9;
+	width: 80px;
+}
+
+.teams-calendar-time-slot {
+	height: 48px;
+	border-bottom: 1px solid #f3f2f1;
+	display: flex;
+	align-items: flex-start;
+	justify-content: flex-end;
+	padding: 4px 12px;
+	font-size: 11px;
+	color: #605e5c;
+	font-weight: 500;
+}
+
+.teams-calendar-day-header {
+	background: #faf9f8;
+	border-bottom: 1px solid #e1e5e9;
+	height: 64px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	border-right: 1px solid #e1e5e9;
+}
+
+.teams-calendar-day-name {
+	font-size: 11px;
+	color: #605e5c;
+	font-weight: 600;
+	text-transform: uppercase;
+	margin-bottom: 4px;
+}
+
+.teams-calendar-day-number {
+	font-size: 16px;
+	color: #323130;
+	font-weight: 600;
+}
+
+.teams-calendar-day-number.today {
+	background: #6264a7;
+	color: white;
+	border-radius: 50%;
+	width: 32px;
+	height: 32px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.teams-calendar-day-cell {
+	border-right: 1px solid #f3f2f1;
+	border-bottom: 1px solid #f3f2f1;
+	height: 48px;
+	position: relative;
+	background: white;
+}
+
+.teams-calendar-event {
+	position: absolute;
+	left: 4px;
+	right: 4px;
+	background: #e1d5f7;
+	border-left: 4px solid #6264a7;
+	border-radius: 4px;
+	padding: 4px 8px;
+	cursor: pointer;
+	transition: all 0.2s ease;
+	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.teams-calendar-event:hover {
+	background: #d7c9f2;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+.teams-calendar-event-title {
+	font-size: 12px;
+	font-weight: 600;
+	color: #6264a7;
+	margin-bottom: 2px;
+	line-height: 1.2;
+}
+
+.teams-calendar-event-organizer {
+	font-size: 11px;
+	color: #6264a7;
+	margin-bottom: 2px;
+	line-height: 1.2;
+}
+
+.teams-calendar-event-teams {
+	font-size: 10px;
+	color: #6264a7;
+	display: flex;
+	align-items: center;
+	gap: 4px;
+}
+
+/* Current time red line */
+.teams-calendar-current-time-line {
+	position: absolute;
+	left: 0;
+	right: 0;
+	z-index: 20;
+	pointer-events: none;
+}
+
+.teams-calendar-current-time-dot {
+	width: 12px;
+	height: 12px;
+	background: #c4314b;
+	border-radius: 50%;
+	border: 2px solid white;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+	margin-left: -6px;
+}
+
+.teams-calendar-current-time-bar {
+	height: 2px;
+	background: #c4314b;
+	flex: 1;
+}
+
+/* Teams Calendar Styles */
+.teams-calendar {
+	background: #faf9f8;
+	font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.teams-calendar-header {
+	background: #ffffff;
+	border-bottom: 1px solid #e1e5e9;
+	padding: 12px 24px;
+}
+
+.teams-calendar-time-column {
+	background: #faf9f8;
+	border-right: 1px solid #e1e5e9;
+	width: 60px;
+}
+
+.teams-calendar-day-header {
+	background: #faf9f8;
+	border-right: 1px solid #e1e5e9;
+	border-bottom: 1px solid #e1e5e9;
+	padding: 12px 8px;
+	text-align: center;
+}
+
+.teams-calendar-day-header.today {
+	background: #e1d5f7;
+	color: #6264a7;
+	font-weight: 600;
+}
+
+.teams-calendar-event {
+	background: #c4314b;
+	color: white;
+	border-radius: 4px;
+	padding: 4px 8px;
+	margin: 2px;
+	font-size: 12px;
+	cursor: pointer;
+	transition: all 0.2s ease;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.teams-calendar-event:hover {
+	background: #a12b3f;
+	transform: translateY(-1px);
+	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+.teams-calendar-event.busy {
+	background: #c4314b;
+}
+
+.teams-calendar-event.tentative {
+	background: #ffaa44;
+}
+
+.teams-calendar-event.free {
+	background: #107c10;
+}
+
+.teams-calendar-event.out-of-office {
+	background: #8764b8;
+}
+
+.teams-calendar-current-time-line {
+	position: absolute;
+	left: 0;
+	right: 0;
+	height: 2px;
+	background: #c4314b;
+	z-index: 10;
+	pointer-events: none;
+}
+
+.teams-calendar-current-time-line::before {
+	content: "";
+	position: absolute;
+	left: -6px;
+	top: -4px;
+	width: 10px;
+	height: 10px;
+	background: #c4314b;
+	border-radius: 50%;
+	border: 2px solid white;
+}
+
+/* Teams Date Picker Styles */
+.teams-date-picker .ant-picker-calendar-full .ant-picker-panel {
+	background: white;
+	border: none;
+	box-shadow: none;
+}
+
+.teams-date-picker .ant-picker-calendar-full .ant-picker-calendar-date {
+	border: 1px solid #f3f2f1;
+	border-radius: 4px;
+	margin: 1px;
+	transition: all 0.2s ease;
+	height: 32px;
+}
+
+.teams-date-picker .ant-picker-calendar-full .ant-picker-calendar-date:hover {
+	background: #f3f2f1;
+	border-color: #c8c6c4;
+}
+
+.teams-date-picker .ant-picker-calendar-full .ant-picker-calendar-date-selected {
+	background: #e1d5f7;
+	border-color: #6264a7;
+}
+
+.teams-date-picker .ant-picker-calendar-full .ant-picker-calendar-date-today {
+	background: #fff3e0;
+	border-color: #6264a7;
+}
+
+.teams-date-picker .ant-picker-calendar-full .ant-picker-calendar-date-content {
+	height: 100%;
+	padding: 2px;
+	overflow: hidden;
+	cursor: pointer;
+}
+
+.teams-date-picker .ant-picker-calendar-full .ant-picker-calendar-date-value {
+	font-weight: 500;
+	color: #323130;
+	font-size: 12px;
+}
+
+.teams-date-picker .ant-picker-calendar-header {
+	padding: 8px 16px;
+	border-bottom: 1px solid #e1e5e9;
+}
+
+/* Filter dropdowns styling */
+.ant-select-small .ant-select-selector {
+	border-color: #e1e5e9;
+	border-radius: 4px;
+}
+
+.ant-select-small .ant-select-selector:hover {
+	border-color: #c8c6c4;
+}
+
+.ant-select-small.ant-select-focused .ant-select-selector {
+	border-color: #6264a7;
+	box-shadow: 0 0 0 2px rgba(98, 100, 167, 0.1);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+	.teams-calendar-time-column {
+		width: 60px;
+	}
+	
+	.teams-calendar-time-slot {
+		padding: 4px 8px;
+		font-size: 10px;
+	}
+	
+	.teams-calendar-day-header {
+		height: 48px;
+	}
+	
+	/* Hide filters on mobile */
+	.teams-calendar-filters {
+		display: none;
+	}
+}
